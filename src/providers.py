@@ -6,6 +6,7 @@ Hỗ trợ Native Tool Calling và chuyển đổi linh hoạt qua biến môi t
 import os
 import sys
 import json
+import re
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
@@ -36,28 +37,68 @@ class MockOfflineProvider(BaseLLMProvider):
 
     def generate_with_tools(self, prompt: str, tools_schema: List[Dict[str, Any]], system_prompt: str = "") -> Dict[str, Any]:
         prompt_lower = prompt.lower()
-        
-        # Mô phỏng nhận diện intent gọi Tool
-        if "sv2026001" in prompt_lower and "đặt lịch" in prompt_lower:
+
+        # Sau một Observation thành công, Mock dừng; riêng kiểm tra lịch sẽ tạo event ở bước 2.
+        if "observation từ tool 'check_calendar_availability'" in prompt_lower:
             return {
                 "type": "tool_call",
-                "tool_name": "schedule_appointment",
-                "arguments": {"student_id": "SV2026001", "datetime_str": "14:00 15/09/2026", "advisor_name": "PGS.TS Nguyễn Văn A"},
-                "thought": "Người dùng yêu cầu đặt lịch hẹn tư vấn cho sinh viên SV2026001. Tôi sẽ gọi tool schedule_appointment."
+                "tool_name": "create_calendar_reminder",
+                "arguments": {
+                    "title": "Review mã nguồn Sprint 3",
+                    "start_datetime": "2026-09-17T14:00:00+07:00",
+                    "duration_minutes": 60,
+                    "reminder_minutes": 30,
+                },
+                "thought": "Đã có khung giờ trống, tôi tạo lịch cho giờ đầu tiên phù hợp."
             }
-        elif "sv2026001" in prompt_lower or "tra cứu" in prompt_lower:
-            return {
-                "type": "tool_call",
-                "tool_name": "academic_query",
-                "arguments": {"student_id": "SV2026001"},
-                "thought": "Người dùng muốn tra cứu thông tin học vụ của sinh viên SV2026001. Tôi sẽ gọi tool academic_query."
-            }
-        else:
+        if "observation từ tool" in prompt_lower:
             return {
                 "type": "text",
-                "content": f"[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-                "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool."
+                "content": "Đã hoàn tất yêu cầu dựa trên kết quả từ công cụ.",
+                "thought": "Tool đã xử lý thành công, trả lời xác nhận cho người dùng."
             }
+
+        if "thêm công việc" in prompt_lower or "thêm việc" in prompt_lower:
+            return {
+                "type": "tool_call",
+                "tool_name": "add_todo",
+                "arguments": {"title": "Hoàn thiện slide báo cáo dự án"},
+                "thought": "Người dùng muốn thêm một công việc mới vào to-do list."
+            }
+        if "đánh dấu hoàn thành" in prompt_lower:
+            todo_id = re.search(r"(?:task|todo)-\d+", prompt_lower)
+            return {
+                "type": "tool_call",
+                "tool_name": "update_todo_status",
+                "arguments": {"todo_id": todo_id.group(0).upper() if todo_id else "TODO-001", "status": "completed"},
+                "thought": "Người dùng muốn cập nhật trạng thái công việc."
+            }
+        if "khung giờ" in prompt_lower and "trống" in prompt_lower:
+            return {
+                "type": "tool_call",
+                "tool_name": "check_calendar_availability",
+                "arguments": {"date": "2026-09-17", "start_time": "14:00", "end_time": "17:00"},
+                "thought": "Cần kiểm tra Calendar trước khi tạo sự kiện."
+            }
+        if "có lịch gì" in prompt_lower or "có lịch nào" in prompt_lower:
+            return {
+                "type": "tool_call",
+                "tool_name": "list_calendar_events",
+                "arguments": {"date": "2026-09-14"},
+                "thought": "Người dùng muốn xem event đã có trong một ngày, cần đọc Google Calendar."
+            }
+        if "google calendar" in prompt_lower or "tạo lịch" in prompt_lower:
+            return {
+                "type": "tool_call",
+                "tool_name": "create_calendar_reminder",
+                "arguments": {"title": "Sự kiện nhắc việc", "start_datetime": "2026-10-15T09:00:00+07:00", "duration_minutes": 60, "reminder_minutes": 30},
+                "thought": "Người dùng yêu cầu tạo lịch nhắc trên Google Calendar."
+            }
+        return {
+            "type": "text",
+            "content": "[Mock Agent Response]: Tôi có thể giúp bạn thêm to-do, xem việc chưa hoàn thành và tạo lịch nhắc trên Google Calendar.",
+            "thought": "Câu hỏi hướng dẫn chung, không cần gọi Tool."
+        }
 
 
 class GeminiProvider(BaseLLMProvider):

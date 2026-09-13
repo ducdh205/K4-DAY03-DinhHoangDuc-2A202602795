@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, bạn có thể hướng dẫn tôi cách sử dụng trợ lý để quản lý danh sách việc cần làm và tạo lịch nhắc nhở không?",
+    "expected_behavior": "Chatbot giải thích trực tiếp chức năng và cú pháp mẫu từ System Prompt, không cần gọi bất kỳ Tool nào.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Thêm công việc 'Hoàn thiện slide báo cáo dự án' vào danh sách việc cần làm giúp tôi.",
+    "expected_behavior": "Agent nhận diện ý định thêm to-do, tự động phát sinh Tool Call 'add_todo' với tham số title='Hoàn thiện slide báo cáo dự án'.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "appointment_booking",
+    "question": "Tạo lịch nhắc hẹn 'Họp kick-off dự án mới' trên Google Calendar vào lúc 09:00 sáng ngày 15/10/2026 với thời lượng 1 tiếng.",
+    "expected_behavior": "Agent tự động phát sinh Tool Call 'create_calendar_reminder' với tiêu đề, thời gian bắt đầu chuẩn ISO 8601 và thời lượng.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Kiểm tra xem thứ Năm tuần này tôi có khung giờ nào trống từ 14:00 đến 17:00 không, nếu có thì lên lịch 'Review mã nguồn Sprint 3' vào 1 tiếng đầu tiên của khoảng trống đó nhé.",
+    "expected_behavior": "Agent thực hiện ReAct đa bước: Gọi Tool 'check_calendar_availability' để tìm khung giờ trống trước, sau đó gọi Tool 'create_calendar_reminder' để đặt lịch vào giờ phù hợp.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Đánh dấu hoàn thành to-do có mã định danh TASK-999999 giúp tôi.",
+    "expected_behavior": "Agent gọi Tool 'update_todo_status', nhận kết quả NOT_FOUND từ Tool và phản hồi lịch sự thông báo không tìm thấy công việc, không tự bịa đặt trạng thái.",
+    "complexity": "Medium"
+  }
+]

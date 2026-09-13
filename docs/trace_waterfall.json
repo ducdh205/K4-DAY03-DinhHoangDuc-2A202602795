@@ -1,29 +1,34 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
-    "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
-  },
-  {
-    "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "ngày 14/9/2026 có lịch gì không",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "tool_name": "list_calendar_events",
     "arguments": {
-      "student_id": "SV2026001"
+      "date": "2026-09-14"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "date": "2026-09-14",
+      "count": 1,
+      "events": [
+        {
+          "id": "044bd0lofn95ggr90a9j144db4",
+          "summary": "Đi chơi",
+          "start_datetime": "2026-09-14T22:00:00+07:00",
+          "end_datetime": "2026-09-14T23:00:00+07:00"
+        }
+      ],
+      "message": "Tìm thấy 1 sự kiện vào ngày 2026-09-14."
+    },
+    "latency_ms": 5159.44
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "ngày 14/9/2026 có lịch gì không",
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Vào ngày 14/09/2026, bạn có **1 lịch hẹn**:\n\n- **Sự kiện:** Đi chơi\n- **Thời gian:** 22:00 - 23:00 (14/09/2026)",
+    "latency_ms": 2737.57
   }
 ]
