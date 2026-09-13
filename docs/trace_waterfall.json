@@ -1,34 +1,155 @@
 [
   {
     "step": 1,
-    "query": "ngày 14/9/2026 có lịch gì không",
+    "query": "Chào bạn, bạn có thể hướng dẫn tôi cách sử dụng trợ lý để quản lý danh sách việc cần làm và tạo lịch nhắc nhở không?",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Chào bạn! Tôi là Trợ lý Tác tử Quản lý To-do và Lịch nhắc hẹn. Tôi có thể giúp bạn quản lý công việc hàng ngày và tự động hóa lịch nhắc hẹn trên Google Calendar một cách thuận tiện. \n\nDưới đây là các tính năng chính và cách bạn có thể tương tác với tôi:\n\n---\n\n### 1. 📋 Quản lý Danh sách Công việc (To-do List)\n* **Thêm công việc mới:**\n  * *Ví dụ:* *\"Thêm công việc 'Nộp báo cáo tuần' hạn ngày 2026-09-20 mức ưu tiên cao.\"*\n* **Tra cứu công việc chưa hoàn thành:**\n  * *Ví dụ:* *\"Cho tôi xem danh sách việc cần làm trong hôm nay.\"* hoặc *\"Tìm các việc có mức ưu tiên high.\"*\n* **Cập nhật trạng thái công việc:**\n  * *Ví dụ:* *\"Đánh dấu công việc TODO-001 là đã hoàn thành.\"*\n\n---\n\n### 2. 📅 Quản lý Lịch biểu & Nhắc hẹn (Google Calendar)\n* **Xem lịch hẹn trong ngày:**\n  * *Ví dụ:* *\"Ngày 2026-09-20 tôi có lịch gì không?\"*\n* **Kiểm tra khung giờ trống:**\n  * *Ví dụ:* *\"Kiểm tra xem chiều ngày 2026-09-20 từ 14:00 đến 17:00 tôi có rảnh không.\"*\n* **Tạo sự kiện & nhắc hẹn:**\n  * *Ví dụ:* *\"Tạo lịch nhắc hẹn 'Họp nhóm dự án' vào lúc 19:00 ngày 2026-09-20, thời lượng 60 phút, nhắc trước 30 phút.\"*\n\n---\n\n💡 **Mẹo nhỏ:** Để tôi hỗ trợ tốt nhất, bạn có thể cung cấp thông tin thời gian cụ thể theo định dạng `YYYY-MM-DD` (ngày) và `HH:MM` (giờ). \n\nBạn muốn bắt đầu với việc thêm to-do mới hay xem lịch hẹn ngay bây giờ?",
+    "latency_ms": 7413.62
+  },
+  {
+    "step": 1,
+    "query": "Thêm công việc 'Hoàn thiện slide báo cáo dự án' vào danh sách việc cần làm giúp tôi.",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "list_calendar_events",
+    "thought": "Gemini quyết định gọi công cụ 'add_todo' với tham số: {\"title\": \"Hoàn thiện slide báo cáo dự án\"}",
+    "tool_name": "add_todo",
     "arguments": {
-      "date": "2026-09-14"
+      "title": "Hoàn thiện slide báo cáo dự án"
     },
     "observation": {
       "status": "SUCCESS",
-      "date": "2026-09-14",
-      "count": 1,
-      "events": [
-        {
-          "id": "044bd0lofn95ggr90a9j144db4",
-          "summary": "Đi chơi",
-          "start_datetime": "2026-09-14T22:00:00+07:00",
-          "end_datetime": "2026-09-14T23:00:00+07:00"
-        }
-      ],
-      "message": "Tìm thấy 1 sự kiện vào ngày 2026-09-14."
+      "todo": {
+        "id": "TODO-004",
+        "title": "Hoàn thiện slide báo cáo dự án",
+        "due_date": "Chưa đặt hạn",
+        "priority": "medium",
+        "status": "pending"
+      },
+      "message": "Đã thêm công việc 'Hoàn thiện slide báo cáo dự án' vào danh sách to-do."
     },
-    "latency_ms": 5159.44
+    "latency_ms": 2044.17
   },
   {
     "step": 2,
-    "query": "ngày 14/9/2026 có lịch gì không",
+    "query": "Thêm công việc 'Hoàn thiện slide báo cáo dự án' vào danh sách việc cần làm giúp tôi.",
     "action_type": "FINAL_ANSWER",
     "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
-    "output": "Vào ngày 14/09/2026, bạn có **1 lịch hẹn**:\n\n- **Sự kiện:** Đi chơi\n- **Thời gian:** 22:00 - 23:00 (14/09/2026)",
-    "latency_ms": 2737.57
+    "output": "Tôi đã thêm thành công công việc **\"Hoàn thiện slide báo cáo dự án\"** vào danh sách việc cần làm của bạn.\n\n📌 **Thông tin chi tiết:**\n- **Mã công việc:** `TODO-004`\n- **Mức độ ưu tiên:** Medium\n- **Thời hạn:** Chưa đặt hạn\n- **Trạng thái:** Pending (Đang chờ thực hiện)",
+    "latency_ms": 2871.93
+  },
+  {
+    "step": 1,
+    "query": "Tạo lịch nhắc hẹn 'Họp kick-off dự án mới' trên Google Calendar vào lúc 09:00 sáng ngày 15/10/2026 với thời lượng 1 tiếng.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'create_calendar_reminder' với tham số: {\"title\": \"Họp kick-off dự án mới\", \"start_datetime\": \"2026-10-15T09:00:00+07:00\", \"reminder_minutes\": 30, \"duration_minutes\": 60}",
+    "tool_name": "create_calendar_reminder",
+    "arguments": {
+      "title": "Họp kick-off dự án mới",
+      "start_datetime": "2026-10-15T09:00:00+07:00",
+      "reminder_minutes": 30,
+      "duration_minutes": 60
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "message": "Đã tạo lịch nhắc trên Google Calendar.",
+      "event": {
+        "id": "sa5p7kfgtscvr7b849sdi32qjg",
+        "summary": "Họp kick-off dự án mới",
+        "start_time": "2026-10-15T09:00:00+07:00",
+        "duration": "60 phút",
+        "html_link": "https://www.google.com/calendar/event?eid=c2E1cDdrZmd0c2N2cjdiODQ5c2RpMzJxamcgZGluaGR1Y2s5OEBt"
+      }
+    },
+    "latency_ms": 4314.41
+  },
+  {
+    "step": 2,
+    "query": "Tạo lịch nhắc hẹn 'Họp kick-off dự án mới' trên Google Calendar vào lúc 09:00 sáng ngày 15/10/2026 với thời lượng 1 tiếng.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Đã tạo thành công lịch nhắc hẹn **\"Họp kick-off dự án mới\"** trên Google Calendar với các thông tin chi tiết như sau:\n\n* **Thời gian bắt đầu:** 09:00, ngày 15/10/2026\n* **Thời lượng:** 60 phút (1 tiếng)\n* **Liên kết sự kiện:** [Xem trên Google Calendar](https://www.google.com/calendar/event?eid=c2E1cDdrZmd0c2N2cjdiODQ5c2RpMzJxamcgZGluaGR1Y2s5OEBt)",
+    "latency_ms": 2966.21
+  },
+  {
+    "step": 1,
+    "query": "Kiểm tra xem thứ Năm tuần này tôi có khung giờ nào trống từ 14:00 đến 17:00 không, nếu có thì lên lịch Review mã nguồn Sprint 3 vào 1 tiếng đầu tiên của khoảng trống đó nhé.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'check_calendar_availability' với tham số: {\"end_time\": \"17:00\", \"start_time\": \"14:00\", \"date\": \"2026-09-24\"}",
+    "tool_name": "check_calendar_availability",
+    "arguments": {
+      "end_time": "17:00",
+      "start_time": "14:00",
+      "date": "2026-09-24"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "date": "2026-09-24",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "available_slots": [
+        {
+          "start_datetime": "2026-09-24T14:00:00+07:00",
+          "end_datetime": "2026-09-24T17:00:00+07:00"
+        }
+      ],
+      "message": "Tìm thấy 1 khung giờ trống."
+    },
+    "latency_ms": 15724.57
+  },
+  {
+    "step": 2,
+    "query": "Kiểm tra xem thứ Năm tuần này tôi có khung giờ nào trống từ 14:00 đến 17:00 không, nếu có thì lên lịch Review mã nguồn Sprint 3 vào 1 tiếng đầu tiên của khoảng trống đó nhé.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'create_calendar_reminder' với tham số: {\"title\": \"Review mã nguồn Sprint 3\", \"reminder_minutes\": 30, \"duration_minutes\": 60, \"start_datetime\": \"2026-09-24T14:00:00+07:00\"}",
+    "tool_name": "create_calendar_reminder",
+    "arguments": {
+      "title": "Review mã nguồn Sprint 3",
+      "reminder_minutes": 30,
+      "duration_minutes": 60,
+      "start_datetime": "2026-09-24T14:00:00+07:00"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "message": "Đã tạo lịch nhắc trên Google Calendar.",
+      "event": {
+        "id": "1ioe0a6qvd28csi74tmvskjq00",
+        "summary": "Review mã nguồn Sprint 3",
+        "start_time": "2026-09-24T14:00:00+07:00",
+        "duration": "60 phút",
+        "html_link": "https://www.google.com/calendar/event?eid=MWlvZTBhNnF2ZDI4Y3NpNzR0bXZza2pxMDAgZGluaGR1Y2s5OEBt"
+      }
+    },
+    "latency_ms": 4134.98
+  },
+  {
+    "step": 3,
+    "query": "Kiểm tra xem thứ Năm tuần này tôi có khung giờ nào trống từ 14:00 đến 17:00 không, nếu có thì lên lịch Review mã nguồn Sprint 3 vào 1 tiếng đầu tiên của khoảng trống đó nhé.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Đã kiểm tra và tạo lịch nhắc thành công cho bạn trên Google Calendar: Review mã nguồn Sprint 3, từ 14:00 đến 15:00 ngày 24/09/2026.",
+    "latency_ms": 4444.52
+  },
+  {
+    "step": 1,
+    "query": "Đánh dấu hoàn thành to-do có mã định danh TASK-999999 giúp tôi.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'update_todo_status' với tham số: {\"status\": \"completed\", \"todo_id\": \"TASK-999999\"}",
+    "tool_name": "update_todo_status",
+    "arguments": {
+      "status": "completed",
+      "todo_id": "TASK-999999"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy công việc có mã 'TASK-999999'."
+    },
+    "latency_ms": 4374.46
+  },
+  {
+    "step": 2,
+    "query": "Đánh dấu hoàn thành to-do có mã định danh TASK-999999 giúp tôi.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Dừng vì Tool trả về lỗi hoặc không tìm thấy dữ liệu.",
+    "output": "Không tìm thấy công việc có mã 'TASK-999999'.",
+    "latency_ms": 0.0
   }
 ]

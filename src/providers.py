@@ -7,6 +7,7 @@ import os
 import sys
 import json
 import re
+import time
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
@@ -148,11 +149,20 @@ class GeminiProvider(BaseLLMProvider):
                 temperature=0.2
             )
 
-            response = client.models.generate_content(
-                model=self.model_name,
-                contents=prompt,
-                config=config
-            )
+            for attempt in range(3):
+                try:
+                    response = client.models.generate_content(
+                        model=self.model_name,
+                        contents=prompt,
+                        config=config
+                    )
+                    break
+                except Exception as exc:
+                    is_rate_limited = "RESOURCE_EXHAUSTED" in str(exc)
+                    if not is_rate_limited or attempt == 2:
+                        raise
+                    print("⏳ [Gemini Provider]: Đã chạm quota; chờ 30 giây rồi thử lại.")
+                    time.sleep(30)
 
             # Kiểm tra xem Gemini có trả về Tool Call không
             if response.function_calls:
